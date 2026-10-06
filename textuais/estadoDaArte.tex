@@ -1,0 +1,180 @@
+%==============================================================================
+\chapter{Estado da Arte}\label{estadoDaArte}
+%==============================================================================
+
+Neste Capítulo, são apresentados os trabalhos relacionados a este estudo e o processo envolvido em sua revisão. Esse processo está baseado nas diretrizes propostas por Kitchenham (2004) e envolve as seguintes etapas: definição da questão de pesquisa, definição de strings e bases de busca, definição de critérios de exclusão e inclusão, seleção dos trabalhos relacionados nas bases com apoio da string de busca e dos critérios definidos, assim como a leitura, a interpretação e a síntese dos trabalhos selecionados.
+
+
+\section{Strings e Bases de Busca}
+Para este trabalho, definiram-se as seguintes questões de pesquisa: Como a experiência de usuário tem sido observada na evolução do software? Considerando a experiência de usuário, que processos, métodos, técnicas e ferramentas têm contribuído à mudança de software?
+
+
+\section{Processo de Busca}
+
+Para a busca dos estudos foi levantado um conjunto de palavras-chaves que devem estar presentes no \textit{abstract} dos artigos. Sendo elas:
+\begin{itemize}
+    \item \textit{Mobile Application}
+    \item \textit{Software Engineering}
+    \item \textit{Health}
+\end{itemize}
+
+Após o levantamento, definiu-se uma string base, apresentada na Tabela \ref{tab:strings}, que varia de acordo com o sistema de busca de cada biblioteca digital. As bibliotecas utilizadas neste estudo foram: ACM \textit{Digital Library} e IEEE \textit{Xplore}.
+
+\begin{table}[!h]
+ \caption{Strings}
+ \label{tab:strings}
+ \resizebox{\textwidth}{!}{
+ \centering
+\begin{tabular}{|p{2cm}|p{12cm}|} \hline
+\textbf{Bases} & \textbf{Strings} \\ \hline
+\textit{Generic} & \textit{("Mobile Application") AND ("Software Engineering" OR "Software development") AND (Health OR Mhealth)} \\ \hline
+ACM &  \textit{("Mobile Application") AND ("Software Engineering" "Software development") AND (Health Mhealth)}.  \\ \hline
+IEEE & \textit{("Mobile Application") AND ("Software Engineering" OR "Software development") AND (Health OR Mhealth)} \\ \hline
+\end{tabular}}
+\end{table}
+\\
+\section{Critérios de Inclusão e Exclusão}
+Critérios de Inclusão (CI) e Critérios de Exclusão (CE) são levantados e usados para selecionar os estudos encontrados na busca.
+\\Os Critérios de Inclusão foram aplicados para selecionar os artigos seriam analisados, de forma que contribuíssem com o andamento da pesquisa. Já os Critérios de Exclusão foram aplicados para evitar artigos que não possuem relação com a pesquisa. Os CI e CE são listados a seguir.
+
+\textbf{CI1.} Artigos que apresentam ao menos um app na área da saúde que mantém/registra dados de forma detalhada (objetivo, público alvo)
+\\\textbf{CI2.} Artigo que apresenta ao menos uma tecnologia para desenvolver o aplicativo.
+\\\\\textbf{CE1.} Artigos duplicados.
+\\\textbf{CE2.} Artigos que foram publicados no formato resumo ou estão incompletos.
+\\\textbf{CE3.} Artigos que não estão disponíveis nas bases de acesso da Unipampa.
+\\\textbf{CE4.} Artigos publicados em idiomas diferentes do inglês e português.
+\\\textbf{CE5.} Artigos com menos de 4 páginas.
+\\\textbf{CE6.} Livros pagos.
+\\\textbf{CE7.} Artigo não é da área da saúde ou não se encaixa no esperado.
+
+\section{Critérios de Qualidade}
+
+Os pontos são concedidos de acordo com o quão satisfatório os estudos respondem os Critérios de Qualidade, sendo assim, são pontuados com: Sim (S), o critério é respondido de forma satisfatória e relevante, corresponde a 1 ponto; Parcial (P), o critério é parcialmente respondido, corresponde a 0,5 ponto; Não (N), o critério não é respondido ou a resposta não é satisfatória, não é acrescentado pontos. Os 4 CQ levantados são apresentados a seguir:
+
+\\\textbf{CQ1.} O artigo detalha em profundidade ao menos um aplicativo?
+\\\textbf{Critérios de Análise:}
+\\\textbf{S:} Caso o artigo detalhe em profundidade ao menos um aplicativo(Objetivo, Público Alvo).
+\\\textbf{P:} Caso o artigo detalhe parcialmente ao menos um aplicativo
+\\\textbf{N:} Caso o artigo não apresente detalhes de aplicativo nenhum. 
+
+\\\textbf{CQ2.} O artigo detalha como foi realizada a implementação?
+\\\textbf{Critérios de Análise:}
+\\\textbf{S:} Caso o artigo detalhe como foi realizada a implementação.
+\\\textbf{P:} Caso o artigo detalhe parcialmente como foi realizada a implementação.
+\\\textbf{N:} Caso o artigo não apresente detalhes de como foi realizada a implementação.
+
+\\\textbf{CQ3}. O artigo aborda questões éticas?
+\\\textbf{Critérios de Análise:}
+\\\textbf{S:} Caso o artigo aborde questões éticas.
+\\\textbf{P:} Caso o artigo aborde parcialmente as questões éticas.
+\\\textbf{N:} Caso o artigo não apresente nada sobre questões éticas.
+
+\textbf{CQ4.} O artigo apresenta uma avaliação do aplicativo?
+\\\textbf{Critérios de Análise:}
+\\\textbf{S:} Caso o artigo apresente uma avaliação do aplicativo.
+\\\textbf{P:} Caso o artigo detalhe parcialmente uma avaliação do aplicativo.
+\\\textbf{N:} Caso o artigo não apresente detalhes de uma avaliação do aplicativo.
+
+
+\section{Análise dos Trabalhos}
+
+Está seção apresenta a análise de 9 estudos levantados durante a condução do
+mapeamento sistemático. Os trabalhos foram analisados levando em consideração os aplicativos apresentados e comparados, suas características e exemplos de usos. A Tabela \ref{tab:studiesQuality} abaixo mostra detalhadamente como foi realizado a etapa de classificação dos estudos.
+
+\begin{table}[!h]
+\caption[Quality Assessment]{Quality Assessment.}
+\label{tab:studiesQuality}
+\centering
+\begin{tabular}{@{}llllllll@{}}
+\toprule
+\textbf{Estudos} & \textbf{Q1} &\textbf{Q2} &\textbf{Q3} &\textbf{Q4} & \textbf{General Score} & \textbf{Score} \\ \midrule
+\cite{7013161} &S &S &N &N &Regular & 2.5  \\ 
+\cite{7831582} &P &P &S &N &Regular & 2.5 \\ 
+\cite{7219781} &S &S &N &S &Bom & 3.75  \\ 
+\cite{7594047} &S &S &N &N &Regular & 2.5  \\ 
+\cite{8075316} &S &S &N &P &Bom & 3.125 \\ 
+\cite{1011455} &S &S &N &N &Regular & 2.5 \\ 
+\cite{101109} &S &S &N &N &Regular & 2.5 \\ 
+\cite{101145} &S &S &N &S &Bom & 3.75 \\ 
+\cite{3129783} &S &S &P &N &Bom & 3.125 \\ \hline
+\end{tabular}
+\end{table}
+
+\\A seguir cada questão de pesquisa é respondida de acordo com a leitura e análise dos estudos selecionados. 
+\\\textbf{QP1. e QP2. Quais aplicativos na área da saúde foram desenvolvidos para manter/registrar dados e qual seu objetivo?}
+Após a leitura dos 9 artigos selecionados, foram extraídos os aplicativos apresentados, bem como seus objetivos. Estes dissertados a seguir na Tabela \ref{tab:apps_objetivos}.
+
+
+\begin{table}[!h]
+ \caption{Aplicativos X Objetivos}
+ \label{tab:apps_objetivos}
+ \resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{5cm}|p{11cm}|} \hline
+\textbf{Aplicativos} & \textbf{Objetivo} \\ \hline
+Self Health Care Monitoring System \cite{7013161} & Monitorar os cuidados de saúde, conduzida ao ritmo cardíaco, pressão sanguínea e temperatura corporal do paciente.  \\ \hline
+Applying QR code and mobile application \cite{7219781} & Ajudar um hospital público a aliviar o problema da superlotação de pacientes. \\ \hline
+Pre-hospital emergency notification system \cite{7594047} & Permitir que a equipe médica de emergência informe o hospital sobre dados pessoais e o estado de saúde da vítima.  \\ \hline
+Pulse Keeper Heart Rate Monitor \cite{8075316} & Ajudar pacientes com infarto do miocárdio a acompanhar sua frequência cardíaca e buscar ajuda de emergência com facilidade. \\ \hline
+UbiMeds \cite{101145} & Melhorar a acessibilidade dos usuários idosos e deficientes no processo de tomar medicamentos.  \\ \hline
+INTROMAT \cite{101109} & Apoiar a saúde mental do cidadão, tendo foco no processo de avaliação e monitoramento.  \\ \hline
+PainApp \cite{1011455} & Amparar a gestão, relatórios e monitorização de eficácia do tratamento para pessoas que sofrem de dores crônicas ou agudas. \\ \hline
+Mobile eCard \cite{3129783} & Transferir de forma segura as principais funcionalidades atuais da carteira de identidade austríaca para um smartphone, baseado em uma identidade segura existente.  \\ \hline
+\end{tabular}%
+}\end{table}
+
+\textbf{Q3. Quais questões éticas foram observadas?}
+
+Abaixo, são apresentados os artigos que abordam questões éticas em seu conteúdo. Nota-se que apenas dois estudos tratavam sobre questões éticas. 
+
+\cite{3129783} Antes do início do processo de registro técnico o paciente deve ser informado sobre o uso de seus dados, visto que a troca de dados pessoais com outros sistemas sem o consentimento do paciente viola os direitos de privacidade. Dessa forma, desde que o consentimento seja dado pelo paciente, a integridade e autenticidade devem ser mantidas. 
+
+\cite{7831582} A IEC 62304:2006 expõe os processos do ciclo de vida do software do Dispositivo Médico (MD) e também relata a classificação de segurança do software, baseada na pior consequência possível no caso de uma falha de software.
+Dentro dos domínios críticos de segurança, é importante ter um Sistema de Gestão da Qualidade (SGQ) implementado. Assim, a ISO 13485, é uma especialização da ISO 9001 para o domínio MD. Os requisitos do SGQ precisam ser atendidos para comercializar um MD em qualquer lugar do mundo. Porém a ISO 13485 não visa requisitos de software, ela pode ser usada em conjunto com a IEC 62304 para apoiar o projeto e a manutenção seguros do software MD. O IEC 62304 é um padrão crítico para desenvolvedores de software MD, pois é o único padrão que fornece recomendações para implementações de software MD com base no pior cenário de falhas de software que causam riscos.
+Já para gerenciamento geral de risco de MD, a IEC 62304 é usada em conjunto com a ISO 14971 e a IEC 80002-1 fornece orientação sobre a aplicação da ISO 14971 para desenvolvimento de software.
+Devido a crescente importância com a usabilidade de dispositivos dentro da indústria MD, as organizações devem aderir também a IEC 62366 que contém os requisitos do processo de engenharia de usabilidade MD.
+
+\\\textbf{Q4. Quais tecnologias foram utilizadas para desenvolver o aplicativo?}
+Na Tabela \ref{tab:apps_tecnologias} abaixo, são apresentados os aplicativos encontrados e as tecnologias utilizadas em seu desenvolvimento.
+\begin{table}[!h]
+ \caption{Aplicativos X Tecnologias}
+ \label{tab:apps_tecnologias}
+ \resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{5cm}|p{11cm}|} \hline
+\textbf{Aplicativos} & \textbf{Tecnologias} \\ \hline
+Self Health Care Monitoring System \cite{7013161} & Um sensor gateway. Além de arquiteturas de computação em nuvem. Tal tecnologia em nuvem consiste em três partes: o Datacenter Virtualizado, Armazenamento e Portal Web SaaS.  \\ \hline
+Pulse Keeper Heart Rate Monitor \cite{8075316} & O RUP (\textit{Rational Unified Process}) foi escolhido para esse desenvolvimento. O Sistema foi desenvolvido com o Android Studio IDE, utilizando a linguagem de programação Java e usando o banco de dados Firebase que sincroniza informações com o banco de dados NoSQL.  \\ \hline
+UbiMeds \cite{101145} & O aplicativo é nativo do IPhone, desenvolvido utilizando SDK 3.0 e a linguagem de programação Objective C. Já para o sistema de gerenciamento de informações centralizado, foi selecionado um servidor web padrão (Apache) e a linguagem de programação web PHP. E para Registro de Saúde Pessoal, foi usado o Google Health. Possui uma extensa API de dados baseada em padrões para interagir com o prontuário do paciente e bibliotecas PHP estão disponíveis para usar a API.  \\ \hline
+INTROMAT \cite{101109} & O serviço TEA API foi implementado utilizando os frameworks Node JS e Express JS. Já as informações foram armazenadas no banco de dados MongoDB.  Para a implementação do aplicativo móvel TEA Fabric, foi utilizado o Android SDK nativo. \\ \hline
+PainApp \cite{1011455} & A camada de armazenamento de dados usa bancos de dados relacionais por meio do RDBMS MySql. Já na camada de lógica é aplicada a tecnologia dos serviços PHP hospedados no Apache HTTP Server de código aberto. A comunicação com as fontes de dados segue o protocolo TCP e é implementada através de tecnologias PHP existentes (PDO, MySQLI). \\ \hline
+Mobile eCard \cite{3129783} & GIN-Network,  GINA-Box - funciona como um gateway seguro e LAN-CCR - leitor de cartão baseado em rede.\\ \hline
+\end{tabular}%
+}\end{table}
+
+\textbf{Q5. Quais recursos do dispositivo móvel foram usados?}
+
+Nesta questão é apresentado quais os recursos do dispositivo móvel foram utilizados no desenvolvimento de sua aplicação, conforme a Tabela \ref{tab:apps_recursos}. Nota-se que apenas alguns artigos dissertavam sobre essas informações. 
+
+\begin{table}[!h]
+ \caption{Recursos usados nos Apps}
+ \label{tab:apps_recursos}
+ \resizebox{\textwidth}{!}{%
+\begin{tabular}{|p{10cm}|p{5cm}|} \hline
+\textbf{Aplicativos} & \textbf{Recursos} \\ \hline
+Self Health Care Monitoring System \cite{7013161} & Bluetooth.  \\ \hline
+Pulse Keeper Heart Rate Monitor \cite{8075316} & GPS e SMS
+\\ \hline
+INTROMAT \cite{101109} & Relógio \\ \hline
+Mobile eCard \cite{3129783} & Câmera e Wi-fi\\ \hline
+Applying QR code and mobile application \cite{7219781} & Câmera e GPS. \\ \hline
+\end{tabular}%
+}\end{table}
+
+\textbf{Q6. Como o aplicativo foi avaliado?}
+\\Abaixo, são dissertados os estudos que apresentam avaliação dos aplicativos em seu conteúdo. 
+
+No estudo de \citeonline{7219781} foi implantado um sistema proposto para um ambulatório, no qual os usuários não eram proficientes em TI. Inicialmente foram apresentadas as funções do sistemas para as equipes. Após a apresentação, estes conseguiram executar o sistema totalmente para capturar seus processos reais com pacientes reais. Para cada atividade foi cronometrado o tempo utilizado para concluir esta. Em relação ao rendimento de cada atividade, a atividade “recuperar o prontuário de um paciente (pacientes com consulta)”, “dar recomendações a um paciente” e “atualizar o prontuário do paciente para o sistema de informações do hospital” tiveram os menores rendimentos, respectivamente.
+Assim, percebeu-se que o hospital deveria atribuir maior prioridade à melhoria do processo para três atividades específicas. As quais iriam reduzir o tempo de espera e permanência dos pacientes e melhorar a satisfação destes.
+
+Já no estudo de \citeonline{1011455} dez pacientes e dois médicos usaram a solução por quinze dias. Inicialmente todos os participantes receberam informações sobre como utilizar a aplicação e as diferentes funcionalidades disponíveis.
+
+No trabalho de \citeonline{8075316} inicialmente, passou por testes de caixa preta para verificar se todas as funcionalidades foram corretamente implementadas. Em uma outra iteração, o projeto foi testado por 9 pessoas com ataque cardíaco. \textit{Feedbacks} e comentários foram coletados. Assim, algumas das melhorias que foram sugeridas foram feitas para atender aos usuários iniciais. 

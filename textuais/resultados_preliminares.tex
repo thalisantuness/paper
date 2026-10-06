@@ -1,0 +1,94 @@
+%==============================================================================
+\chapter{Resultados Preliminares}\label{resultados_preliminares}
+%==============================================================================
+
+\section{Resultado do Questionário}
+O questionário em questão tem o objetivo de entender as necessidades do nosso público-alvo. Dessa forma, perguntas chaves foram selecionadas para apoiar na tomada de decisão sobre o projeto. Tal questionário contou com a resposta de 24 pessoas, sendo 95,8\% do sexo feminino e 4,2\% do sexo masculino, e desse público 75\% eram responsáveis por alguma criança ou pessoa idosa. A média de idade das crianças era de 6 anos e a das pessoas idosas é 75 anos. 
+
+Com relação a medicação, indicaram que a maior frequência dos cuidados com criança foi administrar medicamento uma ou duas vezes ao mês, contabilizando 25\%. E para as pessoas idosas a maioria era de uso contínuo, contabilizando 20,8\%. Apresentaram também como ocorre o controle do horário para administrar os medicamento, onde a maioria das pessoas afirmou que coloca algum alarme para despertar no celular ou anota em papel. Em relação ao histórico de medicamentos, 66,6\% informou que mantém e 33,3\% afirmou que não mantém, e na maioria das vezes possui esse controle guardando as receitas médicas. Seguido disso, 50\% afirmaram que utilizariam um aplicativo que lhe auxiliasse na administração de medicamentos, 20,8\% afirmaram que talvez e os outros 29,1\% informaram que não.
+
+Relacionado aos exames, 75\% indicaram que realizam exames uma vez por ano e os outros 25\% indicaram que realizam exames uma vez por mês ou uma vez a cada seis meses. Com relação ao histórico de exames 20,8\% afirmaram que não mantém o histórico de exames e ou outros 79,1\% afirmaram que guardam os exames armazenados em casa. Adicionalmente, 70,8\% responderam que utilizariam um aplicativo que mantivesse o histórico de exames, 12,5\% responderam que talvez e os outros 16,6\% informaram que não. E por fim, indicaram qual a maior dificuldade que encontram nos cuidados com a saúde da criança ou da pessoa idosa, onde a maioria afirmou ter dificuldade no administração dos remédios, tanto problemas com horários, quanto nomes e histórico de medicações utilizadas, seguido do controle de exames realizados.   
+
+\section{Requisitos Funcionais}
+
+\begin{table}[!h]
+\caption{Requisitos Funcionais}
+\begin{tabular}{|p{2.7cm}|p{3.5cm}|p{6cm}|p{2.5cm}|}
+\centering
+\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} & \textbf{Prioridade} \\\hline
+  RF01 & Cadastrar Usuário & O usuário poderá se cadastrar no aplicativo. & Alta   \\\hline
+  RF02 &  Login Usuário & O usuário poderá logar no aplicativo caso já tenha feito o cadastro. & Alta  \\\hline
+  RF03 & Gerenciar informações pessoais de saúde & O usuário poderá gerenciar suas informações pessoais (Idade, peso, altura, alergias no aplicativo), ou seja, atualizar, excluir e adicionar informações se necessário. & Alta  \\\hline
+  RF04 & Gerenciar medicamentos & O usuário poderá cadastrar, visualizar, alterar e deletar seus medicamentos no aplicativo. & Alta \\\hline
+  RF05 & Gerenciar exames &  O usuário poderá cadastrar, visualizar, alterar e deletar seus exames no aplicativo.  & Alta \\\hline
+  RF06 & Gerenciar consultas & O usuário poderá cadastrar, visualizar, alterar e deletar suas consultas no aplicativo. & Alta   \\\hline
+  RF07 & Gerenciar médicos & O usuário poderá cadastrar, visualizar, alterar e deletar seus médicos no aplicativo. & Média \\\hline
+  RF08 & Gerenciar contatos de emergência & O usuário poderá cadastrar, visualizar, alterar e deletar contatos de emergência no aplicativo, e em caso de necessidade essas pessoas serão contatadas. &  Média \\\hline
+  RF009 & Gerenciar procedimentos cirúrgicos & O usuário poderá cadastrar, visualizar, alterar e deletar seus procedimentos cirúrgicos no aplicativo &  Média \\\hline
+  RF10 & Gerenciar planos de saúde &  O usuário poderá cadastrar, visualizar, alterar e deletar seus planos de saúde no aplicativo. & Baixa \\\hline
+  RF011 & Compartilhar informações & O usuário poderá gerar um pdf com as informações que desejar e posteriormente compartilhar com pessoas que escolher. & Baixa \\\hline
+  
+\end{tabular}
+\end{table}
+
+\section{Requisitos Não Funcionais}
+\subsection{Segurança}
+
+\begin{table}[!h]
+\caption{Requisitos Não Funcionais - Segurança}
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\centering
+\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
+  RNF01 & Sistema de Gestão de Qualidade & O aplicativo deverá seguir a ISO 13485:2016 necessária para atender aos requisitos regulatórios do domínio de dispositivos médicos. \\\hline
+  RNF02 &  Consentimento para compartilhamento dos dados & O usuário deverá ceder o consentimento dos dados para que o aplicativo consiga um pdf para caso queira enviar para alguma pessoa. \\\hline
+  \end{tabular}
+\end{table}
+
+\subsection{Usabilidade}
+
+\begin{table}[!h]
+\caption{Requisitos Não Funcionais - Usabilidade}
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\centering
+\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
+  RNF03 & Design do aplicativo & O aplicativo deverá conter um design simples e de fácil entendimento. \\\hline
+  RNF04 &  Engenharia de usabilidade & O aplicativo deverá aderir a IEC 62366 que contém os requisitos do processo de engenharia de usabilidade dispositivos médicos. \\\hline
+  \end{tabular}
+\end{table}
+
+\subsection{Compatibilidade}
+
+\begin{table}[!h]
+\caption{Requisitos Não Funcionais - Compatibilidade}
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\centering
+\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
+  RNF05 & Aplicativo híbrido & O aplicativo deverá ser híbrido, ou seja, disponível para Android e iOS. \\\hline
+  \end{tabular}
+\end{table}
+
+%resultados preliminares
+% - documento de requisitos(RF, RNF, RQ)
+%https://docs.google.com/document/d/1fX4Tqc7pdragLT5hXVySTmxDyzHR9MZ5BrGTmj_pz8I/edit?usp=sharing
+%protótipos
+%https://www.figma.com/file/f47tAlZKxbP6Q6Ta5zmZ56/Untitled?node-id=0%3A1
+
+
+
+
+%colocar as perguntas do questionário aqui?
+%questão x gráfico ou questão x tabela em caso de resposta.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
