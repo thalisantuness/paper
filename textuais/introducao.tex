@@ -2,29 +2,60 @@
 \chapter{Introdução}\label{introducao}
 %==============================================================================
 
-A tecnologia digital tornou-se pervasiva em domínios diversificados, inclusive no educacional. Neste domínio, estudantes, professores e gestores utilizam tecnologias digitais para desempenharem uma série de tarefas: ler, escrever, calcular, planejar, avaliar etc. Quando se trata da gestão escolar, é comum a adoção de ferramentas de escritório. Além disso, há relatos de sistemas de software que apoiam a contratação e a alocação de professores em escolas, o acompanhamento da vida escolar do estudante pela família, a organização das atividades escolares, o acompanhamento de unidades escolares, assim como a gestão de dados de planejamento escolar, registro escolar e estrutura de funcionamento \cite{OliveiraMelo2020}
+O avanço exponencial do Processamento de Linguagem Natural (\textit{Natural Language Processing} - NLP) e dos Modelos de Linguagem de Larga Escala (\textit{Large Language Models} - LLMs) transformou radicalmente a computação contemporânea. Para além de atuar como interfaces de conversação passiva, as LLMs tornaram-se o núcleo cognitivo de uma nova classe de sistemas de software: os agentes inteligentes autônomos \cite{wang2024survey}. Tais agentes são capazes de perceber o ambiente, decompor problemas complexos em subtarefas, invocar ferramentas externas (\textit{tool calling}) e persistir estados em memória para alcançar objetivos estabelecidos de forma interativa \cite{deng2025asc}.
 
+À medida que os agentes autônomos são adotados em tarefas mais complexas --- como assistência ao desenvolvimento de software, análise de dados e suporte técnico operacional ---, a arquitetura subjacente desses sistemas depara-se com dois desafios primordiais: a gestão da precisão informacional e a viabilidade econômica do consumo de recursos computacionais. No que tange à precisão, os modelos de linguagem sofrem de alucinações intrínsecas e limitações de atualização temporal. Para mitigar esse problema, a arquitetura de Geração Aumentada por Recuperação (\textit{Retrieval-Augmented Generation} - RAG) estabeleceu-se como paradigma central na literatura \cite{lewis2020retrieval}, provendo injeção dinâmica de documentos relevantes a partir de bases de conhecimento vetoriais indexadas.
 
-Ao investigarem o domínio educacional, com ênfase para a gestão escolar, Oliveira e Melo (2020) propuseram o aplicativo móvel ParecerEdu para apoiar a emissão de pareceres nos anos iniciais do ensino fundamental. Segundo os autores, ps trabalhos relacionados apresentaram o uso de tecnologias digitais no apoio à gestão escolar. Contudo, nenhum especificava seu processo de Engenharia de Software nem como ocorreu a participação dos usuários em sua concepção. Ademais, nenhuma dessas soluções é voltada especificamente à elaboração de pareceres descritivos pelos professores, a partir de dados de acompanhamento dos estudantes no dia a dia da sala de aula \cite{OliveiraMelo2020}.	
-	
-Nesse contexto, foi criado o ParecerEdu. Este tem como propósito auxiliar professores dos anos iniciais do ensino fundamental na geração de pareceres a partir de dados de acompanhamento de estudantes na sala de aula.  Para fazê-lo, o aplicativo possibilita aos professores, para cada uma de suas turmas, definir critérios de avaliação em diferentes áreas do conhecimento e avaliar determinada turma a partir desses critérios, indicando, para cada aluno, se um critério foi atingido, atingido parcialmente ou não foi atingido. Gráficos são gerados para apresentar o desempenho da turma e também o desempenho individual dos alunos.
+No que tange aos recursos computacionais e financeiros, a execução de agentes baseia-se em ciclos iterativos de raciocínio (\textit{reasoning loops}), nos quais cada etapa consome centenas ou milhares de \textit{tokens} de entrada e saída. A dependência contínua e irrestrita de modelos de ponta comerciais (\textit{frontier models}), embora proporcione elevada capacidade de raciocínio, gera custos de operação que se tornam proibitivos em escala industrial. Por outro lado, a restrição a modelos compactos e abertos reduz drasticamente o orçamento financeiro, mas frequentemente conduz à falha na execução de instruções intrincadas ou chamadas estruturadas de ferramentas.
 
-Uma primeira versão do aplicativo foi compartilhada com professoras dos anos iniciais do ensino fundamental das escolas estaduais Arthur Hormain e Oswaldo Dornelles de Alegrete/RS. Contudo, seu uso precisa ser acompanhado, o que deve gerar novos requisitos, levando à evolução desse sistema. Além disso, Otokovieski, Melo e Crespo (2020) realizaram uma avaliação de usabilidade do aplicativo, identificando problemas com alto grau de severidade que devem ser corrigidos.
+Nesse cenário, emergem duas inovações tecnológicas complementares: o avanço de hardwares dedicados à aceleração da inferência de LLMs em alta velocidade e baixo custo --- representados pelas Unidades de Processamento de Linguagem (\textit{Language Processing Units} - LPUs) da plataforma Groq \cite{groq2024lpu} --- e os esquemas dinâmicos de roteamento inteligente de modelos (\textit{Agentic Model Routing}) \cite{lance2026agentasrouter}. Paralelamente, novas visões de arquitetura computacional, como as Redes Definidas por Agentes (\textit{Agentic-Defined Networking} - ADN) propostas por \citeonline{rossi2026adn}, concebem agentes autônomos e serviços inteligentes como entidades de primeira classe distribuídas na infraestrutura, demandando orquestração adaptativa entre capacidades heterogêneas de computação.
 
-Segundo Sommervile (2018), um software necessita evoluir para se manter útil e, assim, as mudanças no sistema devem ser feitas para garantir que ele continue a agregar valor. A evolução em um contexto geral acontece por inúmeros motivos, como mudanças nas empresas e nas expectativas do usuário. Neste trabalho, a principal motivação é que a experiência dos usuários com o software tendem a gerar novos requisitos (WANG; LIU; WANG, 2012; CARNEIRO et al., 2020). Além disso,  as adaptações a plataformas devem ser feitas para que o software seja adequado a tecnologias atuais.  
-Nesse contexto, numa perspectiva de Engenharia de Software, pergunta-se: Como a experiência do usuário pode influenciar na evolução do app ParecerEdu? Sua arquitetura comporta o desenvolvimento de novos requisitos? De que modo evoluir o app para que ele possa ser utilizado em diferentes plataformas? 
-O objetivo geral deste Trabalho de Conclusão de Curso é evoluir o aplicativo app ParecerEdu a partir da experiência do usuário com esse software. Como objetivos específicos, tem-se:
+\section{Problema de Pesquisa}
+
+Os sistemas de agentes convencionais baseados em LLM operam primordialmente sobre arquiteturas homogêneas e estáticas: uma única LLM (tipicamente a de maior capacidade e custo) é eleita para executar todas as etapas da cadeia de raciocínio, desde tarefas elementares de triagem de texto e sumarização de consultas vetoriais até raciocínios causais profundos e síntese final de resultados. Essa abordagem monolítica acarreta dois gargalos severos:
+
+\begin{enumerate}
+    \item \textbf{Explosão de Custos e Latência}: Requisições triviais consomem cotas financeiras equivalentes a tarefas de alta complexidade. Adicionalmente, quando combinadas a mecanismos de RAG ingênuos, janelas de contexto extensas e não otimizadas multiplicam os custos em tokens de entrada a cada rodada de interação;
+    \item \textbf{Inflexibilidade na Fronteira de Pareto}: Modelos menores e mais baratos operam com tempos de resposta mínimos, mas degradam a acurácia em cenários fora da distribuição trivial, enquanto modelos maiores garantem acurácia, mas impõem gargalos orçamentários insustentáveis.
+\end{enumerate}
+
+Assim, formula-se a seguinte questão de pesquisa central: \textit{De que maneira um framework de agente inteligente autônomo pode conciliar Roteamento Dinâmico de Modelos (Agentic Routing) e RAG em uma infraestrutura de inferência acelerada (Groq) para minimizar o custo em tokens e a latência sem degradar a eficácia na resolução de tarefas?}
+
+\section{Objetivos}
+
+Com o intuito de responder à questão de pesquisa delineada, são formulados o objetivo geral e os objetivos específicos deste trabalho.
+
+\subsection{Objetivo Geral}
+
+Projetar, implementar e avaliar um \textit{framework} arquitetural de agente inteligente autônomo que integra Roteamento Dinâmico de Modelos (\textit{Agentic Model Routing}) e Geração Aumentada por Recuperação (RAG) em ambientes de inferência de alto desempenho (Groq), otimizando o consumo de \textit{tokens} e os custos financeiros operacionais garantindo o nível de assertividade das respostas.
+
+\subsection{Objetivos Específicos}
+
+Para alcançar o objetivo geral, definem-se os seguintes objetivos específicos:
 
 \begin{itemize}
-  \item Investigar o domínio educacional;
-\item Evoluir o aplicativo ParecerEdu;
-\item Integrar práticas de Interação Humano-computador à Engenharia de Software;
-\item  o desenvolvimento de front-end de sistemas móveis.
-
+    \item \textbf{Investigar os fundamentos teóricos} sobre orquestração de agentes autônomos, arquiteturas de redes definidas por agentes (\textit{Agentic-Defined Networking} - ADN) e roteamento dinâmico de modelos de linguagem;
+    \item \textbf{Modelar a arquitetura conceitual do agente}, especificando os módulos de percepção, indexação e busca contextual enxuta (RAG), o orquestrador adaptativo de decisão de roteamento e os nós de execução heterogêneos (Groq LPU vs. modelos de fronteira);
+    \item \textbf{Implementar um protótipo experimental} do sistema, viabilizando o teste de estratégias heurísticas e baseadas em aprendizado/confiança para a alternância entre LLMs;
+    \item \textbf{Avaliar empiricamente o desempenho do framework}, mensurando comparativamente o consumo de \textit{tokens}, o custo monetário por consulta, a latência de geração (\textit{Tokens por segundo} e \textit{Time-to-First-Token}) e a acurácia global das respostas frente a arquiteturas homogêneas tradicionais.
 \end{itemize}
 
-Como referências para embasar este trabalho, foi investigado nas bases ACM Digital Library, IEEE Xplore e Scopus, afim de encontrar trabalhos acadêmicos que levam em conta a evolução do software observando experiência do usuário e o que usa-se de apoio para realizar essa evolução, esta etapa é descrita no capítulo X. Logo é apresentada a metodologia realizada no capítulo X, abordando o processo realizado para elaboração deste estudo, assim como ferramentas usadas e resultados obtidos a partir disso.
-Como referências para embasar este trabalho, foi investigado nas bases ACM Digital Library, IEEE Xplore e Scopus, afim de encontrar trabalhos acadêmicos que levam em conta a evolução do software observando experiência do usuário e o que usa-se de apoio para realizar essa evolução, esta etapa é descrita no capítulo X. Logo é apresentada a metodologia realizada no capítulo X, abordando o processo realizado para elaboração deste estudo, assim como ferramentas usadas e resultados obtidos a partir disso.
+\section{Justificativa e Relevância}
 
+A relevância deste trabalho manifesta-se em três dimensões: acadêmica, técnica e econômica. Sob a perspectiva acadêmica, o estudo contribui para o avanço da Engenharia de Software voltada para Inteligência Artificial (\textit{SE for AI}) e Sistemas Agenticos, dialogando com as pesquisas recentes de ponta em infraestruturas distribuídas inteligentes \cite{rossi2026adn,lance2026agentasrouter}.
 
+Sob a perspectiva técnica e econômica, democratiza a construção e sustentação de assistentes inteligentes funcionais. O uso indiscriminado de APIs comerciais de grande porte constitui a principal barreira de escalabilidade para pequenas e médias organizações, bem como para pesquisadores individuais. Ao demonstrar a viabilidade de uma infraestrutura híbrida que combina o throughput extremo de provedores de inferência LPU com a recuperação seletiva de conhecimento (RAG) e escalonamento contingente de modelos pesados, viabiliza-se a operação contínua de agentes inteligentes com alta relação de custo-benefício.
 
+\section{Organização da Monografia}
+
+Esta monografia está estruturada em seis capítulos. Este Capítulo \ref{introducao} contextualizou o tema, introduziu o problema de pesquisa, os objetivos e a relevância do trabalho. 
+
+O Capítulo \ref{estadoDaArte} apresenta a fundamentação teórica e a revisão da literatura, detalhando os três pilares do projeto: agentes autônomos e roteamento dinâmico de modelos, técnicas de RAG e a visão arquitetural de redes e serviços agenticos. 
+
+O Capítulo \ref{metodologia} descreve a metodologia de pesquisa empregada, formalizando a arquitetura proposta do sistema, a especificação dos módulos componentes, o fluxo do ciclo de decisão e o ambiente experimental. 
+
+O Capítulo \ref{resultados_preliminares} aborda os resultados preliminares obtidos no desenvolvimento do protótipo e o planejamento das baterias experimentais de validação. 
+
+O Capítulo \ref{cronograma} expõe o cronograma de atividades programadas para a conclusão do Trabalho de Conclusão de Curso (TCC II). 
+
+Por fim, o Capítulo \ref{conclusao} tece as considerações finais sobre o estágio atual da pesquisa e delineia os passos futuros para consolidação das contribuições.

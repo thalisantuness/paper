@@ -1,180 +1,76 @@
 %==============================================================================
-\chapter{Estado da Arte}\label{estadoDaArte}
+\chapter{Fundamentação Teórica e Trabalhos Relacionados}\label{estadoDaArte}
 %==============================================================================
 
-Neste Capítulo, são apresentados os trabalhos relacionados a este estudo e o processo envolvido em sua revisão. Esse processo está baseado nas diretrizes propostas por Kitchenham (2004) e envolve as seguintes etapas: definição da questão de pesquisa, definição de strings e bases de busca, definição de critérios de exclusão e inclusão, seleção dos trabalhos relacionados nas bases com apoio da string de busca e dos critérios definidos, assim como a leitura, a interpretação e a síntese dos trabalhos selecionados.
+Para fundamentar o projeto de um agente inteligente eficiente e sensível a custos, este capítulo estrutura a revisão bibliográfica em três pilares conceituais basilares, adotando a diretriz de concisão analítica:
 
+\begin{enumerate}
+    \item \textbf{Roteamento Dinâmico de Modelos em Agentes Autônomos}: mecanismos orientados a agentes para seleção e alternância dinâmica entre modelos de linguagem heterogêneos, visando a otimização de custos e precisão;
+    \item \textbf{Geração Aumentada por Recuperação (RAG)}: injeção seletiva de conhecimento contextual para mitigação de alucinações e contenção de inchaço na janela de \textit{tokens};
+    \item \textbf{Arquiteturas de Serviços e Redes Orientadas a Agentes (ADN)}: princípios de infraestrutura distribuída onde agentes cooperam sobre nós heterogêneos e hardwares aceleradores de inferência.
+\end{enumerate}
 
-\section{Strings e Bases de Busca}
-Para este trabalho, definiram-se as seguintes questões de pesquisa: Como a experiência de usuário tem sido observada na evolução do software? Considerando a experiência de usuário, que processos, métodos, técnicas e ferramentas têm contribuído à mudança de software?
+\section{Agentes Autônomos e Roteamento Dinâmico de Modelos}
 
+Tradicionalmente, a adoção de LLMs em sistemas corporativos e assistentes virtuais considerava a seleção de um modelo estático durante a fase de implantação. Em tais arquiteturas convencionais, todas as consultas recebidas pelo agente são invariavelmente encaminhadas para o mesmo provedor de modelo, independentemente da complexidade inerente da solicitação. Como observado por \citeonline{wang2024survey}, essa homogeneidade introduz ineficiências graves: perguntas triviais consomem o mesmo orçamento computacional e financeiro que instruções matemáticas ou encadeamentos lógicos complexos.
 
-\section{Processo de Busca}
+Para solucionar essa assimetria, surgiram propostas de roteamento de modelos (\textit{model routing}). Inicialmente, esses roteadores operavam como classificadores estáticos unidirecionais baseados em classificadores textuais simples. Contudo, em ambientes agenticos onde o sistema toma ações consecutivas, o roteamento puramente estático padece de um déficit informacional crítico quanto ao desempenho de execução real.
 
-Para a busca dos estudos foi levantado um conjunto de palavras-chaves que devem estar presentes no \textit{abstract} dos artigos. Sendo elas:
+Essa limitação é enfrentada no trabalho de \citeonline{lance2026agentasrouter}, que introduz o paradigma \textit{Agent-as-a-Router} (ACRouter). No modelo proposto pelos autores, a tomada de decisão sobre qual LLM invocar não é tratada como uma simples classificação isolada, mas como um processo interativo formalizado em um ciclo de Contexto-Ação-Feedback (C-A-F):
+
 \begin{itemize}
-    \item \textit{Mobile Application}
-    \item \textit{Software Engineering}
-    \item \textit{Health}
+    \item \textbf{Contexto}: Avaliação da instrução corrente, restrições orçamentárias de tokens e histórico de interações;
+    \item \textbf{Ação}: Seleção da LLM mais adequada (por exemplo, um modelo compacto de alta velocidade para tarefas de rotina versus um modelo de fronteira para raciocínio analítico);
+    \item \textbf{Feedback}: O agente inspeciona o resultado gerado por meio de um módulo verificador (\textit{Verifier}), calculando métricas de confiança ou detectando falhas para acumular experiência ancorada em execução (\textit{execution-grounded experience}).
 \end{itemize}
 
-Após o levantamento, definiu-se uma string base, apresentada na Tabela \ref{tab:strings}, que varia de acordo com o sistema de busca de cada biblioteca digital. As bibliotecas utilizadas neste estudo foram: ACM \textit{Digital Library} e IEEE \textit{Xplore}.
+O trabalho de \citeonline{lance2026agentasrouter} demonstra empiricamente que o roteamento agentico expande a fronteira de Pareto entre acurácia e custo de tokens, reduzindo drasticamente o arrependimento acumulado (\textit{cumulative regret}) em comparação ao uso contínuo de um único modelo de topo de linha. Esse princípio constitui a pedra angular do motor de decisão adotado neste trabalho.
 
-\begin{table}[!h]
- \caption{Strings}
- \label{tab:strings}
- \resizebox{\textwidth}{!}{
- \centering
-\begin{tabular}{|p{2cm}|p{12cm}|} \hline
-\textbf{Bases} & \textbf{Strings} \\ \hline
-\textit{Generic} & \textit{("Mobile Application") AND ("Software Engineering" OR "Software development") AND (Health OR Mhealth)} \\ \hline
-ACM &  \textit{("Mobile Application") AND ("Software Engineering" "Software development") AND (Health Mhealth)}.  \\ \hline
-IEEE & \textit{("Mobile Application") AND ("Software Engineering" OR "Software development") AND (Health OR Mhealth)} \\ \hline
-\end{tabular}}
-\end{table}
-\\
-\section{Critérios de Inclusão e Exclusão}
-Critérios de Inclusão (CI) e Critérios de Exclusão (CE) são levantados e usados para selecionar os estudos encontrados na busca.
-\\Os Critérios de Inclusão foram aplicados para selecionar os artigos seriam analisados, de forma que contribuíssem com o andamento da pesquisa. Já os Critérios de Exclusão foram aplicados para evitar artigos que não possuem relação com a pesquisa. Os CI e CE são listados a seguir.
+\section{Geração Aumentada por Recuperação (RAG) como Estratégia de Eficiência}
 
-\textbf{CI1.} Artigos que apresentam ao menos um app na área da saúde que mantém/registra dados de forma detalhada (objetivo, público alvo)
-\\\textbf{CI2.} Artigo que apresenta ao menos uma tecnologia para desenvolver o aplicativo.
-\\\\\textbf{CE1.} Artigos duplicados.
-\\\textbf{CE2.} Artigos que foram publicados no formato resumo ou estão incompletos.
-\\\textbf{CE3.} Artigos que não estão disponíveis nas bases de acesso da Unipampa.
-\\\textbf{CE4.} Artigos publicados em idiomas diferentes do inglês e português.
-\\\textbf{CE5.} Artigos com menos de 4 páginas.
-\\\textbf{CE6.} Livros pagos.
-\\\textbf{CE7.} Artigo não é da área da saúde ou não se encaixa no esperado.
+Em arquiteturas convencionais de agentes inteligentes, é frequente a prática de injetar vastos fragmentos documentais, históricos completos de conversação ou bases brutas de conhecimento diretamente no cabeçalho do \textit{prompt} do modelo. Essa abordagem, denominada de contexto exaustivo, acarreta severos efeitos colaterais: eleva quadraticamente o custo das requisições (uma vez que os provedores de nuvem tarifam os tokens de entrada), amplia o tempo até o primeiro token (\textit{Time to First Token} - TTFT) e induz o modelo ao fenômeno de dispersão atencional, culminando em alucinações.
 
-\section{Critérios de Qualidade}
+O paradigma de Geração Aumentada por Recuperação (\textit{Retrieval-Augmented Generation} - RAG), introduzido formalmente no trabalho clássico de \citeonline{lewis2020retrieval}, estabelece um método rigoroso para desacoplar a memória paramétrica do modelo da base de conhecimento factual. Conforme esquematizado pelos autores, o RAG combina dois componentes síncronos:
 
-Os pontos são concedidos de acordo com o quão satisfatório os estudos respondem os Critérios de Qualidade, sendo assim, são pontuados com: Sim (S), o critério é respondido de forma satisfatória e relevante, corresponde a 1 ponto; Parcial (P), o critério é parcialmente respondido, corresponde a 0,5 ponto; Não (N), o critério não é respondido ou a resposta não é satisfatória, não é acrescentado pontos. Os 4 CQ levantados são apresentados a seguir:
+\begin{equation}
+    p(y|x) = \sum_{z \in \text{top-}k} p(z|x) \, p(y|x, z)
+\end{equation}
 
-\\\textbf{CQ1.} O artigo detalha em profundidade ao menos um aplicativo?
-\\\textbf{Critérios de Análise:}
-\\\textbf{S:} Caso o artigo detalhe em profundidade ao menos um aplicativo(Objetivo, Público Alvo).
-\\\textbf{P:} Caso o artigo detalhe parcialmente ao menos um aplicativo
-\\\textbf{N:} Caso o artigo não apresente detalhes de aplicativo nenhum. 
+\noindent onde $x$ representa a consulta de entrada, $z$ consiste nos documentos ou trechos relevantes recuperados a partir de um índice denso vetorial com base em similaridade semântica (cosseno ou produto escalar sobre vetores de \textit{embeddings}), e $y$ constitui a resposta gerada.
 
-\\\textbf{CQ2.} O artigo detalha como foi realizada a implementação?
-\\\textbf{Critérios de Análise:}
-\\\textbf{S:} Caso o artigo detalhe como foi realizada a implementação.
-\\\textbf{P:} Caso o artigo detalhe parcialmente como foi realizada a implementação.
-\\\textbf{N:} Caso o artigo não apresente detalhes de como foi realizada a implementação.
+Sob a ótica da Engenharia de Software e da economia de recursos de agentes autônomos, o RAG atua como um filtro cirúrgico: apenas os $k$ fragmentos estritamente necessários para a resolução da demanda são extraídos e apresentados ao modelo de linguagem. Dessa forma, além de garantir ancoragem factual e diminuir drasticamente alucinações em domínios específicos, o RAG reduz a quantidade de \textit{tokens} de entrada transmitidos para as LLMs em até ordens de magnitude.
 
-\\\textbf{CQ3}. O artigo aborda questões éticas?
-\\\textbf{Critérios de Análise:}
-\\\textbf{S:} Caso o artigo aborde questões éticas.
-\\\textbf{P:} Caso o artigo aborde parcialmente as questões éticas.
-\\\textbf{N:} Caso o artigo não apresente nada sobre questões éticas.
+\section{Arquiteturas de Serviços e Redes Orientadas a Agentes (ADN)}
 
-\textbf{CQ4.} O artigo apresenta uma avaliação do aplicativo?
-\\\textbf{Critérios de Análise:}
-\\\textbf{S:} Caso o artigo apresente uma avaliação do aplicativo.
-\\\textbf{P:} Caso o artigo detalhe parcialmente uma avaliação do aplicativo.
-\\\textbf{N:} Caso o artigo não apresente detalhes de uma avaliação do aplicativo.
+A execução distribuída e eficiente de agentes autônomos requer um arcabouço estrutural que vá além de simples invocações de scripts ad-hoc. Conforme explorado por \citeonline{deng2025asc}, a transição dos serviços computacionais orientados a funções para o paradigma de Computação de Serviços Agenticos (\textit{Agentic Services Computing} - ASC) redefine serviços como agentes autônomos orientados a objetivos, dotados de ciclo de vida próprio, percepção de contexto e capacidade de colaboração inter-agente.
 
+No âmbito de infraestrutura e redes inteligentes, \citeonline{rossi2026adn} formalizam a visão pioneira de Redes Definidas por Agentes (\textit{Agentic-Defined Networking} - ADN). No modelo ADN, os agentes de inteligência artificial são posicionados como entidades de primeira classe embutidas ao longo de todo o contínuo de dispositivos, borda (\textit{edge}) e nuvem. A arquitetura ADN preconiza que os agentes devem:
 
-\section{Análise dos Trabalhos}
+\begin{itemize}
+    \item Perceber continuamente o estado dos nós de execução e os recursos disponíveis no ambiente;
+    \item Manter crenças e raciocinar autonomamente sobre restrições operacionais e métricas de desempenho estabelecidas por operadores de sistema;
+    \item Coordenar dinamicamente o fluxo de trabalho e o despacho de processamento de acordo com capacidades heterogêneas de nós locais e remotos.
+\end{itemize}
 
-Está seção apresenta a análise de 9 estudos levantados durante a condução do
-mapeamento sistemático. Os trabalhos foram analisados levando em consideração os aplicativos apresentados e comparados, suas características e exemplos de usos. A Tabela \ref{tab:studiesQuality} abaixo mostra detalhadamente como foi realizado a etapa de classificação dos estudos.
+O alinhamento conceitual com o ADN fornece a base arquitetural para a inclusão de hardwares aceleradores de inferência dedicados, tais como as Unidades de Processamento de Linguagem (LPUs) desenvolvidas pela Groq \cite{groq2024lpu}. Ao contrário de GPUs convencionais, que enfrentam gargalos de largura de banda de memória durante a fase auto-regressiva de geração token a token, as LPUs oferecem execução determinística de alto rendimento, ultrapassando 500 a 800 tokens por segundo em modelos abertos (e.g., Llama 3 8B).
 
-\begin{table}[!h]
-\caption[Quality Assessment]{Quality Assessment.}
-\label{tab:studiesQuality}
+Essa assimetria de infraestrutura consolida a proposta deste trabalho: sob a ótica arquitetural do ADN, tarefas leves de orquestração, triagem de intenções e injeção de RAG podem ser atribuídas localmente ou a nós de inferência rápida LPU (Groq) a custos residuais, acionando serviços de nuvem de fronteira (mais onerosos) apenas sob demanda verificada. Complementarmente, aspectos de governança e monitoramento de execução de ferramentas por agentes conectam-se aos estudos de validação e controle desenvolvidos por \citeonline{souza2024firewalls}.
+
+\section{Síntese Conceitual da Integração}
+
+A Tabela \ref{tab:pilares} sumariza o papel exercido por cada trabalho basilar na sustentação do framework proposto nesta monografia:
+
+\begin{table}[!htb]
 \centering
-\begin{tabular}{@{}llllllll@{}}
-\toprule
-\textbf{Estudos} & \textbf{Q1} &\textbf{Q2} &\textbf{Q3} &\textbf{Q4} & \textbf{General Score} & \textbf{Score} \\ \midrule
-\cite{7013161} &S &S &N &N &Regular & 2.5  \\ 
-\cite{7831582} &P &P &S &N &Regular & 2.5 \\ 
-\cite{7219781} &S &S &N &S &Bom & 3.75  \\ 
-\cite{7594047} &S &S &N &N &Regular & 2.5  \\ 
-\cite{8075316} &S &S &N &P &Bom & 3.125 \\ 
-\cite{1011455} &S &S &N &N &Regular & 2.5 \\ 
-\cite{101109} &S &S &N &N &Regular & 2.5 \\ 
-\cite{101145} &S &S &N &S &Bom & 3.75 \\ 
-\cite{3129783} &S &S &P &N &Bom & 3.125 \\ \hline
+\caption{Contribuição dos Pilares Teóricos para o Trabalho Proposto}
+\label{tab:pilares}
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{6.5cm}|}
+\hline
+\textbf{Pilar / Artigo Base} & \textbf{Domínio} & \textbf{Papel no Framework Proposto} \\ \hline
+\citeonline{lance2026agentasrouter} & Roteamento Agentico & Fornece o ciclo Contexto-Ação-Feedback (C-A-F) e o módulo verificador para decidir quando transitar entre modelos. \\ \hline
+\citeonline{lewis2020retrieval} & Recuperação Vetorial (RAG) & Garante a recuperação estrita de contexto factual, reduzindo alucinações e contendo a expansão de tokens de entrada. \\ \hline
+\citeonline{rossi2026adn} & Arquitetura de Redes Agenticas (ADN) & Estrutura a coordenação do fluxo de serviços e o despacho hierárquico sobre hardwares heterogêneos (Groq LPU vs. Nuvem). \\ \hline
 \end{tabular}
 \end{table}
 
-\\A seguir cada questão de pesquisa é respondida de acordo com a leitura e análise dos estudos selecionados. 
-\\\textbf{QP1. e QP2. Quais aplicativos na área da saúde foram desenvolvidos para manter/registrar dados e qual seu objetivo?}
-Após a leitura dos 9 artigos selecionados, foram extraídos os aplicativos apresentados, bem como seus objetivos. Estes dissertados a seguir na Tabela \ref{tab:apps_objetivos}.
-
-
-\begin{table}[!h]
- \caption{Aplicativos X Objetivos}
- \label{tab:apps_objetivos}
- \resizebox{\textwidth}{!}{%
-\begin{tabular}{|p{5cm}|p{11cm}|} \hline
-\textbf{Aplicativos} & \textbf{Objetivo} \\ \hline
-Self Health Care Monitoring System \cite{7013161} & Monitorar os cuidados de saúde, conduzida ao ritmo cardíaco, pressão sanguínea e temperatura corporal do paciente.  \\ \hline
-Applying QR code and mobile application \cite{7219781} & Ajudar um hospital público a aliviar o problema da superlotação de pacientes. \\ \hline
-Pre-hospital emergency notification system \cite{7594047} & Permitir que a equipe médica de emergência informe o hospital sobre dados pessoais e o estado de saúde da vítima.  \\ \hline
-Pulse Keeper Heart Rate Monitor \cite{8075316} & Ajudar pacientes com infarto do miocárdio a acompanhar sua frequência cardíaca e buscar ajuda de emergência com facilidade. \\ \hline
-UbiMeds \cite{101145} & Melhorar a acessibilidade dos usuários idosos e deficientes no processo de tomar medicamentos.  \\ \hline
-INTROMAT \cite{101109} & Apoiar a saúde mental do cidadão, tendo foco no processo de avaliação e monitoramento.  \\ \hline
-PainApp \cite{1011455} & Amparar a gestão, relatórios e monitorização de eficácia do tratamento para pessoas que sofrem de dores crônicas ou agudas. \\ \hline
-Mobile eCard \cite{3129783} & Transferir de forma segura as principais funcionalidades atuais da carteira de identidade austríaca para um smartphone, baseado em uma identidade segura existente.  \\ \hline
-\end{tabular}%
-}\end{table}
-
-\textbf{Q3. Quais questões éticas foram observadas?}
-
-Abaixo, são apresentados os artigos que abordam questões éticas em seu conteúdo. Nota-se que apenas dois estudos tratavam sobre questões éticas. 
-
-\cite{3129783} Antes do início do processo de registro técnico o paciente deve ser informado sobre o uso de seus dados, visto que a troca de dados pessoais com outros sistemas sem o consentimento do paciente viola os direitos de privacidade. Dessa forma, desde que o consentimento seja dado pelo paciente, a integridade e autenticidade devem ser mantidas. 
-
-\cite{7831582} A IEC 62304:2006 expõe os processos do ciclo de vida do software do Dispositivo Médico (MD) e também relata a classificação de segurança do software, baseada na pior consequência possível no caso de uma falha de software.
-Dentro dos domínios críticos de segurança, é importante ter um Sistema de Gestão da Qualidade (SGQ) implementado. Assim, a ISO 13485, é uma especialização da ISO 9001 para o domínio MD. Os requisitos do SGQ precisam ser atendidos para comercializar um MD em qualquer lugar do mundo. Porém a ISO 13485 não visa requisitos de software, ela pode ser usada em conjunto com a IEC 62304 para apoiar o projeto e a manutenção seguros do software MD. O IEC 62304 é um padrão crítico para desenvolvedores de software MD, pois é o único padrão que fornece recomendações para implementações de software MD com base no pior cenário de falhas de software que causam riscos.
-Já para gerenciamento geral de risco de MD, a IEC 62304 é usada em conjunto com a ISO 14971 e a IEC 80002-1 fornece orientação sobre a aplicação da ISO 14971 para desenvolvimento de software.
-Devido a crescente importância com a usabilidade de dispositivos dentro da indústria MD, as organizações devem aderir também a IEC 62366 que contém os requisitos do processo de engenharia de usabilidade MD.
-
-\\\textbf{Q4. Quais tecnologias foram utilizadas para desenvolver o aplicativo?}
-Na Tabela \ref{tab:apps_tecnologias} abaixo, são apresentados os aplicativos encontrados e as tecnologias utilizadas em seu desenvolvimento.
-\begin{table}[!h]
- \caption{Aplicativos X Tecnologias}
- \label{tab:apps_tecnologias}
- \resizebox{\textwidth}{!}{%
-\begin{tabular}{|p{5cm}|p{11cm}|} \hline
-\textbf{Aplicativos} & \textbf{Tecnologias} \\ \hline
-Self Health Care Monitoring System \cite{7013161} & Um sensor gateway. Além de arquiteturas de computação em nuvem. Tal tecnologia em nuvem consiste em três partes: o Datacenter Virtualizado, Armazenamento e Portal Web SaaS.  \\ \hline
-Pulse Keeper Heart Rate Monitor \cite{8075316} & O RUP (\textit{Rational Unified Process}) foi escolhido para esse desenvolvimento. O Sistema foi desenvolvido com o Android Studio IDE, utilizando a linguagem de programação Java e usando o banco de dados Firebase que sincroniza informações com o banco de dados NoSQL.  \\ \hline
-UbiMeds \cite{101145} & O aplicativo é nativo do IPhone, desenvolvido utilizando SDK 3.0 e a linguagem de programação Objective C. Já para o sistema de gerenciamento de informações centralizado, foi selecionado um servidor web padrão (Apache) e a linguagem de programação web PHP. E para Registro de Saúde Pessoal, foi usado o Google Health. Possui uma extensa API de dados baseada em padrões para interagir com o prontuário do paciente e bibliotecas PHP estão disponíveis para usar a API.  \\ \hline
-INTROMAT \cite{101109} & O serviço TEA API foi implementado utilizando os frameworks Node JS e Express JS. Já as informações foram armazenadas no banco de dados MongoDB.  Para a implementação do aplicativo móvel TEA Fabric, foi utilizado o Android SDK nativo. \\ \hline
-PainApp \cite{1011455} & A camada de armazenamento de dados usa bancos de dados relacionais por meio do RDBMS MySql. Já na camada de lógica é aplicada a tecnologia dos serviços PHP hospedados no Apache HTTP Server de código aberto. A comunicação com as fontes de dados segue o protocolo TCP e é implementada através de tecnologias PHP existentes (PDO, MySQLI). \\ \hline
-Mobile eCard \cite{3129783} & GIN-Network,  GINA-Box - funciona como um gateway seguro e LAN-CCR - leitor de cartão baseado em rede.\\ \hline
-\end{tabular}%
-}\end{table}
-
-\textbf{Q5. Quais recursos do dispositivo móvel foram usados?}
-
-Nesta questão é apresentado quais os recursos do dispositivo móvel foram utilizados no desenvolvimento de sua aplicação, conforme a Tabela \ref{tab:apps_recursos}. Nota-se que apenas alguns artigos dissertavam sobre essas informações. 
-
-\begin{table}[!h]
- \caption{Recursos usados nos Apps}
- \label{tab:apps_recursos}
- \resizebox{\textwidth}{!}{%
-\begin{tabular}{|p{10cm}|p{5cm}|} \hline
-\textbf{Aplicativos} & \textbf{Recursos} \\ \hline
-Self Health Care Monitoring System \cite{7013161} & Bluetooth.  \\ \hline
-Pulse Keeper Heart Rate Monitor \cite{8075316} & GPS e SMS
-\\ \hline
-INTROMAT \cite{101109} & Relógio \\ \hline
-Mobile eCard \cite{3129783} & Câmera e Wi-fi\\ \hline
-Applying QR code and mobile application \cite{7219781} & Câmera e GPS. \\ \hline
-\end{tabular}%
-}\end{table}
-
-\textbf{Q6. Como o aplicativo foi avaliado?}
-\\Abaixo, são dissertados os estudos que apresentam avaliação dos aplicativos em seu conteúdo. 
-
-No estudo de \citeonline{7219781} foi implantado um sistema proposto para um ambulatório, no qual os usuários não eram proficientes em TI. Inicialmente foram apresentadas as funções do sistemas para as equipes. Após a apresentação, estes conseguiram executar o sistema totalmente para capturar seus processos reais com pacientes reais. Para cada atividade foi cronometrado o tempo utilizado para concluir esta. Em relação ao rendimento de cada atividade, a atividade “recuperar o prontuário de um paciente (pacientes com consulta)”, “dar recomendações a um paciente” e “atualizar o prontuário do paciente para o sistema de informações do hospital” tiveram os menores rendimentos, respectivamente.
-Assim, percebeu-se que o hospital deveria atribuir maior prioridade à melhoria do processo para três atividades específicas. As quais iriam reduzir o tempo de espera e permanência dos pacientes e melhorar a satisfação destes.
-
-Já no estudo de \citeonline{1011455} dez pacientes e dois médicos usaram a solução por quinze dias. Inicialmente todos os participantes receberam informações sobre como utilizar a aplicação e as diferentes funcionalidades disponíveis.
-
-No trabalho de \citeonline{8075316} inicialmente, passou por testes de caixa preta para verificar se todas as funcionalidades foram corretamente implementadas. Em uma outra iteração, o projeto foi testado por 9 pessoas com ataque cardíaco. \textit{Feedbacks} e comentários foram coletados. Assim, algumas das melhorias que foram sugeridas foram feitas para atender aos usuários iniciais. 
+A articulação sinérgica desses três pilares viabiliza a construção de um agente autônomo com consumo econômico balanceado de tokens, resposta em tempo real e estabilidade operacional.

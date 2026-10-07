@@ -2,6 +2,16 @@
 \chapter{Considerações Finais}\label{conclusao}
 %==============================================================================
 
-Em Trabalhos de Conclusão de Curso, use ``\emph{Considerações Finais}'' e não ``\emph{Conclusão}''.
+O presente trabalho propôs um framework arquitetural para agentes autônomos baseado em LLMs com foco primordial em eficiência e sustentabilidade orçamentária, combinando o Roteamento Dinâmico de Modelos (\textit{Agentic Model Routing}) e a Geração Aumentada por Recuperação (RAG) sobre hardwares de inferência acelerada em LPU (Groq).
 
-Bom trabalho!
+Ao estruturar a fundamentação teórica sobre três pilares essenciais e complementares --- o paradigma adaptativo de \textit{Agent-as-a-Router} \cite{lance2026agentasrouter}, o mecanismo factual e enxuto de RAG \cite{lewis2020retrieval} e os princípios de infraestrutura e serviços distribuídos de Redes Definidas por Agentes (\textit{Agentic-Defined Networking} - ADN) \cite{rossi2026adn} ---, estabeleceu-se um modelo conceitual sólido que equilibra custo de tokens, tempo de resposta e acurácia.
+
+Os resultados preliminares evidenciam a viabilidade técnica da abordagem: a triagem ultrarrápida viabilizada pela infraestrutura Groq permite filtrar requisições simples e aplicar filtros semânticos de RAG a um custo tarifário até 30 vezes inferior ao de modelos comerciais de fronteira, sem incorrer em penalidades de latência para o usuário final.
+
+Como trabalhos imediatos para a etapa de conclusão da pesquisa, destacam-se:
+
+\begin{itemize}
+    \item A finalização dos módulos de calibração dinâmica de limiares de incerteza no ciclo Contexto-Ação-Feedback (C-A-F);
+    \item A execução do plano experimental completo comparativo contra arquiteturas homogêneas em cenários heterogêneos de benchmark;
+    \item A compilação dos dados conclusivos e a elaboração da versão final da monografia para submissão à banca examinadora da Universidade Federal do Pampa (UNIPAMPA).
+\end{itemize}

@@ -1,94 +1,53 @@
 %==============================================================================
-\chapter{Resultados Preliminares}\label{resultados_preliminares}
+\chapter{Resultados Preliminares e Plano Experimental}\label{resultados_preliminares}
 %==============================================================================
 
-\section{Resultado do Questionário}
-O questionário em questão tem o objetivo de entender as necessidades do nosso público-alvo. Dessa forma, perguntas chaves foram selecionadas para apoiar na tomada de decisão sobre o projeto. Tal questionário contou com a resposta de 24 pessoas, sendo 95,8\% do sexo feminino e 4,2\% do sexo masculino, e desse público 75\% eram responsáveis por alguma criança ou pessoa idosa. A média de idade das crianças era de 6 anos e a das pessoas idosas é 75 anos. 
+Neste capítulo são descritos os resultados preliminares alcançados durante a fase inicial de prototipação do framework, acompanhados de uma análise comparativa preliminar de custos e latência teórica/empírica entre modelos heterogêneos, bem como o planejamento dos experimentos conclusivos.
 
-Com relação a medicação, indicaram que a maior frequência dos cuidados com criança foi administrar medicamento uma ou duas vezes ao mês, contabilizando 25\%. E para as pessoas idosas a maioria era de uso contínuo, contabilizando 20,8\%. Apresentaram também como ocorre o controle do horário para administrar os medicamento, onde a maioria das pessoas afirmou que coloca algum alarme para despertar no celular ou anota em papel. Em relação ao histórico de medicamentos, 66,6\% informou que mantém e 33,3\% afirmou que não mantém, e na maioria das vezes possui esse controle guardando as receitas médicas. Seguido disso, 50\% afirmaram que utilizariam um aplicativo que lhe auxiliasse na administração de medicamentos, 20,8\% afirmaram que talvez e os outros 29,1\% informaram que não.
+\section{Prova de Conceito do Pipeline de Roteamento e RAG}
 
-Relacionado aos exames, 75\% indicaram que realizam exames uma vez por ano e os outros 25\% indicaram que realizam exames uma vez por mês ou uma vez a cada seis meses. Com relação ao histórico de exames 20,8\% afirmaram que não mantém o histórico de exames e ou outros 79,1\% afirmaram que guardam os exames armazenados em casa. Adicionalmente, 70,8\% responderam que utilizariam um aplicativo que mantivesse o histórico de exames, 12,5\% responderam que talvez e os outros 16,6\% informaram que não. E por fim, indicaram qual a maior dificuldade que encontram nos cuidados com a saúde da criança ou da pessoa idosa, onde a maioria afirmou ter dificuldade no administração dos remédios, tanto problemas com horários, quanto nomes e histórico de medicações utilizadas, seguido do controle de exames realizados.   
+Para validar a viabilidade técnica da arquitetura proposta, foi implementado um protótipo em ambiente de bancada computacional interligando:
+\begin{enumerate}
+    \item Um módulo de indexação vetorial com recuperação semântica sobre documentos técnicos;
+    \item Um cliente de comunicação de alto rendimento com os serviços de inferência da Groq (utilizando os modelos \textit{Llama 3 8B} e \textit{Llama 3 70B});
+    \item Um roteador adaptativo com chaveamento para modelos de fronteira comerciais (Tier 2);
+    \item Um verificador sintático e semântico de integridade da resposta.
+\end{enumerate}
 
-\section{Requisitos Funcionais}
+Em testes iniciais de validação funcional, o protótipo demonstrou capacidade de responder a requisições factuais apoiadas por RAG diretamente no Tier 1 (Groq) com tempos de resposta inferiores a 1 segundo para respostas completas de 300 a 500 tokens.
 
-\begin{table}[!h]
-\caption{Requisitos Funcionais}
-\begin{tabular}{|p{2.7cm}|p{3.5cm}|p{6cm}|p{2.5cm}|}
+\section{Análise Comparativa Preliminar de Custos e Desempenho}
+
+A Tabela \ref{tab:custos_modelos} apresenta um levantamento comparativo de custos por milhão de tokens e vazão média de geração observada entre as classes de provedores analisadas no projeto.
+
+\begin{table}[!htb]
 \centering
-\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} & \textbf{Prioridade} \\\hline
-  RF01 & Cadastrar Usuário & O usuário poderá se cadastrar no aplicativo. & Alta   \\\hline
-  RF02 &  Login Usuário & O usuário poderá logar no aplicativo caso já tenha feito o cadastro. & Alta  \\\hline
-  RF03 & Gerenciar informações pessoais de saúde & O usuário poderá gerenciar suas informações pessoais (Idade, peso, altura, alergias no aplicativo), ou seja, atualizar, excluir e adicionar informações se necessário. & Alta  \\\hline
-  RF04 & Gerenciar medicamentos & O usuário poderá cadastrar, visualizar, alterar e deletar seus medicamentos no aplicativo. & Alta \\\hline
-  RF05 & Gerenciar exames &  O usuário poderá cadastrar, visualizar, alterar e deletar seus exames no aplicativo.  & Alta \\\hline
-  RF06 & Gerenciar consultas & O usuário poderá cadastrar, visualizar, alterar e deletar suas consultas no aplicativo. & Alta   \\\hline
-  RF07 & Gerenciar médicos & O usuário poderá cadastrar, visualizar, alterar e deletar seus médicos no aplicativo. & Média \\\hline
-  RF08 & Gerenciar contatos de emergência & O usuário poderá cadastrar, visualizar, alterar e deletar contatos de emergência no aplicativo, e em caso de necessidade essas pessoas serão contatadas. &  Média \\\hline
-  RF009 & Gerenciar procedimentos cirúrgicos & O usuário poderá cadastrar, visualizar, alterar e deletar seus procedimentos cirúrgicos no aplicativo &  Média \\\hline
-  RF10 & Gerenciar planos de saúde &  O usuário poderá cadastrar, visualizar, alterar e deletar seus planos de saúde no aplicativo. & Baixa \\\hline
-  RF011 & Compartilhar informações & O usuário poderá gerar um pdf com as informações que desejar e posteriormente compartilhar com pessoas que escolher. & Baixa \\\hline
-  
+\caption{Comparativo Preliminar de Custos de API e Rendimento de Inferência}
+\label{tab:custos_modelos}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Modelo / Provedor} & \textbf{Custo Input} & \textbf{Custo Output} & \textbf{Throughput} & \textbf{TTFT} \\
+ & \textbf{(\$ / 1M tok)} & \textbf{(\$ / 1M tok)} & \textbf{(tokens/s)} & \textbf{(médio)} \\ \hline
+Groq (Llama 3 8B) & \$ 0,05 & \$ 0,08 & $\approx$ 800 - 1.000 & $<$ 150 ms \\ \hline
+Groq (Llama 3 70B) & \$ 0,59 & \$ 0,79 & $\approx$ 250 - 350 & $<$ 250 ms \\ \hline
+Frontier Model (Comercial) & \$ 3,00 - 5,00 & \$ 15,00 & $\approx$ 60 - 90 & 800 - 1.500 ms \\ \hline
 \end{tabular}
+\\
+\small{Fonte: Compilação de tarifas públicas dos provedores e medições preliminares em bancada.}
 \end{table}
 
-\section{Requisitos Não Funcionais}
-\subsection{Segurança}
+A análise dos dados expostos na Tabela \ref{tab:custos_modelos} evidencia uma disparidade tarifária superior a \textbf{30 vezes} entre modelos de fronteira e modelos compactos acelerados por LPU. Em sistemas onde agentes executam dezenas de iterações consecutivas para decomposição de tarefas, o roteamento dinâmico viabilizado pelo framework apresenta potencial para reduzir o custo operacional total em mais de 70\% a 85\%, mantendo a mesma taxa de sucesso caso as requisições que realmente demandam raciocínio avançado sejam precisamente identificadas e escalonadas.
 
-\begin{table}[!h]
-\caption{Requisitos Não Funcionais - Segurança}
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\centering
-\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
-  RNF01 & Sistema de Gestão de Qualidade & O aplicativo deverá seguir a ISO 13485:2016 necessária para atender aos requisitos regulatórios do domínio de dispositivos médicos. \\\hline
-  RNF02 &  Consentimento para compartilhamento dos dados & O usuário deverá ceder o consentimento dos dados para que o aplicativo consiga um pdf para caso queira enviar para alguma pessoa. \\\hline
-  \end{tabular}
-\end{table}
+\section{Comportamento Preliminar do Seletor de Contexto RAG}
 
-\subsection{Usabilidade}
+Durante a avaliação preliminar da etapa de recuperação documental com RAG, constatou-se que a aplicação do filtro por corte de similaridade ($\tau_{\text{sim}}$) reduziu a quantidade média de tokens de entrada transmitidos para a LLM de aproximadamente 3.200 tokens (quando fornecido o documento bruto) para cerca de 450 tokens (apenas os 2 trechos mais aderentes). Essa redução de aproximadamente 86\% na extensão do prompt primário diminui proporcionalmente tanto os custos diretos de entrada quanto a probabilidade de alucinação factual.
 
-\begin{table}[!h]
-\caption{Requisitos Não Funcionais - Usabilidade}
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\centering
-\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
-  RNF03 & Design do aplicativo & O aplicativo deverá conter um design simples e de fácil entendimento. \\\hline
-  RNF04 &  Engenharia de usabilidade & O aplicativo deverá aderir a IEC 62366 que contém os requisitos do processo de engenharia de usabilidade dispositivos médicos. \\\hline
-  \end{tabular}
-\end{table}
+\section{Planejamento dos Ensaios Finais de Avaliação}
 
-\subsection{Compatibilidade}
+Para a etapa conclusiva do TCC II, o protocolo de experimentação abrangerá:
 
-\begin{table}[!h]
-\caption{Requisitos Não Funcionais - Compatibilidade}
-\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
-\centering
-\textbf{Identificador} &  \textbf{Nome} & \textbf{Descrição} \\\hline
-  RNF05 & Aplicativo híbrido & O aplicativo deverá ser híbrido, ou seja, disponível para Android e iOS. \\\hline
-  \end{tabular}
-\end{table}
-
-%resultados preliminares
-% - documento de requisitos(RF, RNF, RQ)
-%https://docs.google.com/document/d/1fX4Tqc7pdragLT5hXVySTmxDyzHR9MZ5BrGTmj_pz8I/edit?usp=sharing
-%protótipos
-%https://www.figma.com/file/f47tAlZKxbP6Q6Ta5zmZ56/Untitled?node-id=0%3A1
-
-
-
-
-%colocar as perguntas do questionário aqui?
-%questão x gráfico ou questão x tabela em caso de resposta.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{itemize}
+    \item \textbf{Execução de Conjunto de Testes Heterogêneo}: Submissão de um corpus de pelo menos 200 consultas com três graus de dificuldade distintos (Consultas Factuais com RAG, Análise de Código e Raciocínio Lógico Complexo);
+    \item \textbf{Avaliação Cega de Qualidade}: Comparação de assertividade das respostas geradas pelo framework frente aos baselines monolíticos (*Always-Groq* e *Always-Frontier*);
+    \item \textbf{Consolidação da Fronteira de Pareto}: Geração de curvas de dispersão relacionando custo financeiro acumulado versus percentual de tarefas resolvidas com sucesso.
+\end{itemize}

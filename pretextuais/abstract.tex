@@ -1,8 +1,8 @@
 \begin{resumo}[Abstract]
- This is the english abstract.
+The recent advancements in Large Language Models (LLMs) have driven the emergence of autonomous agents capable of performing complex tasks through multi-step reasoning, planning, tool usage, and integration with external data sources. However, the practical deployment of these agents in production environments faces significant economic and computational bottlenecks: continuous reliance on frontier models incurs prohibitive financial costs and high latency, whereas relying solely on lightweight models degrades accuracy in complex reasoning tasks. Furthermore, supplying unconstrained raw contextual data leads to context-window saturation and hallucinations. This work proposes an architectural framework for autonomous agents that integrates dynamic model routing (Agentic Model Routing) and Retrieval-Augmented Generation (RAG) atop ultra-fast inference hardware powered by Language Processing Units (Groq LPUs). Grounded in the principles of Agent-as-a-Router and the architectural vision of Agentic-Defined Networking (ADN), the system implements an adaptive Context-Action-Feedback cycle: high-throughput, low-cost models hosted on Groq handle initial request triage, selective RAG context retrieval, and routine queries, whereas high-capacity frontier models are dynamically dispatched only when task complexity and uncertainty thresholds require deeper cognitive reasoning. The methodology encompasses architectural design, prototype implementation, and an empirical evaluation analyzing the trade-offs between token consumption, monetary costs, response latency, and task success rate against conventional homogeneous architectures.
 
- \vspace{\onelineskip}
- 
- \noindent 
- \textbf{Key-words}: Machine Learning. Computational Linguistics. Sabotage.
+\vspace{\onelineskip}
+
+\noindent 
+\textbf{Keywords}: Autonomous Agents. Large Language Models. Model Routing. Retrieval-Augmented Generation (RAG). Cost Optimization. Groq LPU.
 \end{resumo}

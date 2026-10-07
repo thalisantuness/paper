@@ -149,12 +149,12 @@
 % +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % -------------------------------------------------------------------------------------------------
-\titulo{Desenvolvimento de um Aplicativo para Gerenciar Dados Pessoais de Saúde}
-\autor{Amanda Spolaor}
+\titulo{Roteamento Din{\^a}mico de Modelos e Gera{\c{c}}{\~a}o Aumentada por Recupera{\c{c}}{\~a}o (RAG) para Otimiza{\c{c}}{\~a}o de Custos e Desempenho em Agentes Aut{\^o}nomos baseados em LLMs}
+\autor{Thalis Antunes}
 \local{Alegrete}
-\data{2022}
-\orientador{Prof. <titulação> Nome do Orientador}
-\coorientador{Prof. <titulação> Nome do Coorientador} % Se houver
+\data{2026}
+\orientador{Prof. Dr. Paulo Silas Severo de Souza}
+\coorientador{} % Se houver
 \instituicao{Universidade Federal do Pampa}
 %\tipotrabalho{Projeto de Trabalho de Conclusão de Curso~} % Para TCC I
 \tipotrabalho{Trabalho de Conclusão de Curso~} % Para TCC II
@@ -185,6 +185,37 @@
   short = TCC,
   long  = Trabalho de Conclusão de Curso,
   long-plural-form = Trabalhos de Conclusão de Curso,
+  class = acronimos
+}
+\DeclareAcronym{llm}{
+  short = LLM,
+  long  = Large Language Model (Modelo de Linguagem de Larga Escala),
+  long-plural-form = Modelos de Linguagem de Larga Escala,
+  class = acronimos
+}
+\DeclareAcronym{rag}{
+  short = RAG,
+  long  = Retrieval-Augmented Generation (Geração Aumentada por Recuperação),
+  class = acronimos
+}
+\DeclareAcronym{lpu}{
+  short = LPU,
+  long  = Language Processing Unit (Unidade de Processamento de Linguagem),
+  class = acronimos
+}
+\DeclareAcronym{adn}{
+  short = ADN,
+  long  = Agentic-Defined Networking,
+  class = acronimos
+}
+\DeclareAcronym{api}{
+  short = API,
+  long  = Application Programming Interface (Interface de Programação de Aplicações),
+  class = acronimos
+}
+\DeclareAcronym{nlp}{
+  short = NLP,
+  long  = Natural Language Processing (Processamento de Linguagem Natural),
   class = acronimos
 }
 % -------------------------------------------------------------------------------------------------
@@ -305,7 +336,7 @@
 % Você pode dividir o seu texto em vários arquivos. Por exemplo, um para cada seção principal do
 % trabalho: introducao.tex, relacionados.tex, metodologia.tex, experimentos.tex, conclusao.tex.
 \input{textuais/introducao} % [OBRIGATORIO]
-%\part{Revisão de Literatura} % Pode-se usar partes para organizar os capítulos
+\input{textuais/estadoDaArte} % Fundamentação Teórica e Trabalhos Relacionados
 \input{textuais/metodologia}  % [OBRIGATORIO]
 \input{textuais/resultados_preliminares} % [OBRIGATORIO]
 \input{textuais/cronograma}
